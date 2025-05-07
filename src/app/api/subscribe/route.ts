@@ -1,7 +1,7 @@
 import { db, subscriptions, userStats } from "@/db";
 import { sendEmail } from "@/lib/email/resend";
 import { subscriptionConfirmation } from "@/lib/email/email";
-import { getUser } from "@/lib/github/api";
+import { getUser, getFollowers } from "@/lib/github/api";
 import { eq } from "drizzle-orm";
 
 type SubscribeData = {
@@ -36,10 +36,26 @@ export async function POST(request: Request) {
     userId = result[0].id;
   }
 
+  // Get current followers to initialize the subscription's known followers
+  const followers = await getFollowers({
+    username,
+    page: 1,
+  });
+
+  // Convert GitHub format to our stored format
+  const currentFollowers = followers.map((f) => ({
+    login: f.login,
+    avatar_url: f.avatar_url,
+    html_url: f.html_url,
+    followed_at: new Date().toISOString(),
+  }));
+
   await db.insert(subscriptions).values({
     email,
     userId: userId,
     emailFrequency,
+    knownFollowers: currentFollowers,
+    lastEmailSent: new Date(),
   });
 
   await sendEmail({

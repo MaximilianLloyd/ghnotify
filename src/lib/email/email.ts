@@ -45,10 +45,12 @@ export function followerNotificationEmail({
   recipientEmail,
   githubUsername,
   newFollowers,
+  totalFollowers,
 }: {
   recipientEmail: string;
   githubUsername: string;
   newFollowers: { username: string; avatarUrl: string }[];
+  totalFollowers?: number;
 }) {
   const followerListHtml = newFollowers
     .map(
@@ -94,6 +96,7 @@ export function followerNotificationEmail({
       <h1>🎉 You have ${newFollowers.length} new follower${newFollowers.length > 1 ? "s" : ""}!</h1>
       <p>
         The following GitHub user${newFollowers.length > 1 ? "s have" : " has"} recently followed <strong>${githubUsername}</strong>.
+        ${totalFollowers ? `<br>Total followers: <strong>${totalFollowers}</strong>` : ''}
       </p>
 
       ${followerListHtml}

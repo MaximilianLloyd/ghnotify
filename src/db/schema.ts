@@ -25,9 +25,12 @@ export const userStats = pgTable("user_stats", {
   avatarUrl: varchar("avatar_url", { length: 500 }),
   followers: jsonb("followers_count"),
   lastSynced: timestamp("last_synced").defaultNow(),
+  lastEmailSent: timestamp("last_email_sent"),
+  knownFollowers: jsonb("known_followers").default([]),
 });
 
 export type UserStats = typeof userStats.$inferSelect;
+export type Subscription = typeof subscriptions.$inferSelect;
 
 // Email subscriptions
 export const subscriptions = pgTable("subscriptions", {
@@ -40,5 +43,7 @@ export const subscriptions = pgTable("subscriptions", {
     .notNull()
     .default("daily"),
   subscribedAt: timestamp("subscribed_at").defaultNow(),
+  lastEmailSent: timestamp("last_email_sent"),
+  knownFollowers: jsonb("known_followers").default([]),
   isActive: boolean("is_active").default(true),
 });

@@ -20,6 +20,13 @@ export type GitHubFollowerUser = {
   site_admin: boolean;
 };
 
+export type StoredFollower = {
+  login: string;
+  avatar_url: string;
+  html_url: string;
+  followed_at: string;
+};
+
 export type GitHubUser = {
   login: string;
   id: number;

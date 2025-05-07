@@ -1,6 +1,6 @@
-import { getFollowers } from "@/lib/github/api";
+// import { getFollowers } from "@/lib/github/api";
 import Image from "next/image";
-import { SubscribeForm } from "./SubscribeForm";
+import { UnsubscribeForm } from "./UnsubscribeForm";
 
 export default async function Unsubscribe() {
   return (
@@ -10,7 +10,7 @@ export default async function Unsubscribe() {
         <p>Get notified when someone follows you on Github</p>
       </div>
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <SubscribeForm />
+        <UnsubscribeForm />
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         <a

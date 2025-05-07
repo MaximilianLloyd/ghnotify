@@ -1,11 +1,11 @@
-import { getFollowers } from "@/lib/github/api";
+// import { getFollowers } from "@/lib/github/api";
 import { SubscribeForm } from "./SubscribeForm";
 
 export default async function Home() {
-  const followers = await getFollowers({
-    username: "MaximilianLloyd",
-    page: 1,
-  });
+  // const followers = await getFollowers({
+  //   username: "MaximilianLloyd",
+  //   page: 1,
+  // });
 
   // await sendEmail({
   //   to: "me@maxlloyd.no",
