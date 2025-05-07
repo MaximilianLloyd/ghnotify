@@ -1,0 +1,20 @@
+{
+  "crons": [
+    {
+      "path": "/api/check?emailFrequency=hourly",
+      "schedule": "0 * * * *"
+    },
+    {
+      "path": "/api/check?emailFrequency=daily",
+      "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/check?emailFrequency=weekly",
+      "schedule": "0 0 * * 1"
+    },
+    {
+      "path": "/api/check?emailFrequency=monthly",
+      "schedule": "0 0 1 * *"
+    }
+  ]
+}
