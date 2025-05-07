@@ -6,7 +6,6 @@ import {
   integer,
   pgEnum,
   boolean,
-  jsonb,
   text,
 } from "drizzle-orm/pg-core";
 
