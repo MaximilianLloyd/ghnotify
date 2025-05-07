@@ -7,6 +7,7 @@ import {
   pgEnum,
   boolean,
   jsonb,
+  text,
 } from "drizzle-orm/pg-core";
 
 // Enum for update intervals
@@ -23,10 +24,10 @@ export const userStats = pgTable("user_stats", {
   username: varchar("username", { length: 100 }).notNull().unique(),
   fullName: varchar("full_name", { length: 255 }),
   avatarUrl: varchar("avatar_url", { length: 500 }),
-  followers: jsonb("followers_count"),
+  followers: text("followers").array().default([]),
   lastSynced: timestamp("last_synced").defaultNow(),
   lastEmailSent: timestamp("last_email_sent"),
-  knownFollowers: jsonb("known_followers").default([]),
+  knownFollowers: text("known_followers").array().default([]),
 });
 
 export type UserStats = typeof userStats.$inferSelect;
@@ -44,6 +45,6 @@ export const subscriptions = pgTable("subscriptions", {
     .default("daily"),
   subscribedAt: timestamp("subscribed_at").defaultNow(),
   lastEmailSent: timestamp("last_email_sent"),
-  knownFollowers: jsonb("known_followers").default([]),
+  knownFollowers: text("known_followers").array().default([]),
   isActive: boolean("is_active").default(true),
 });

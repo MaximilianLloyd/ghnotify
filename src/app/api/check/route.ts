@@ -4,7 +4,6 @@ import {
   subscriptions as subscriptionsTable,
   Subscription,
 } from "@/db";
-import { StoredFollower } from "@/lib/github/types";
 import { NextRequest } from "next/server";
 import { eq, and } from "drizzle-orm";
 import { getFollowers } from "@/lib/github/api";
@@ -65,7 +64,6 @@ export async function GET(request: NextRequest) {
         // Get current followers from GitHub (just the first page)
         const followers = await getFollowers({
           username: user.username,
-          page: 1,
         });
 
         // Convert GitHub format to our stored format
@@ -73,17 +71,15 @@ export async function GET(request: NextRequest) {
           login: f.login,
           avatar_url: f.avatar_url,
           html_url: f.html_url,
-          followed_at: new Date().toISOString(),
         }));
 
         // Get previously known followers for this subscription
-        const knownFollowers = (subscription.knownFollowers ||
-          []) as StoredFollower[];
+        const knownFollowers = subscription.knownFollowers || [];
 
         // Find new followers since last email
-        const knownFollowerLogins = new Set(knownFollowers.map((f) => f.login));
+        const knownFollowerSet = new Set(knownFollowers);
         const newFollowers = currentFollowers.filter(
-          (f) => !knownFollowerLogins.has(f.login),
+          (f) => !knownFollowerSet.has(f.login),
         );
 
         if (newFollowers.length > 0) {
@@ -110,7 +106,7 @@ export async function GET(request: NextRequest) {
           await db
             .update(subscriptionsTable)
             .set({
-              knownFollowers: currentFollowers,
+              knownFollowers: currentFollowers.map((f) => f.login),
               lastEmailSent: new Date(),
             })
             .where(eq(subscriptionsTable.id, subscription.id));

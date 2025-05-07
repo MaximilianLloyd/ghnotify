@@ -39,22 +39,13 @@ export async function POST(request: Request) {
   // Get current followers to initialize the subscription's known followers
   const followers = await getFollowers({
     username,
-    page: 1,
   });
-
-  // Convert GitHub format to our stored format
-  const currentFollowers = followers.map((f) => ({
-    login: f.login,
-    avatar_url: f.avatar_url,
-    html_url: f.html_url,
-    followed_at: new Date().toISOString(),
-  }));
 
   await db.insert(subscriptions).values({
     email,
     userId: userId,
     emailFrequency,
-    knownFollowers: currentFollowers,
+    knownFollowers: followers.map((f) => f.login),
     lastEmailSent: new Date(),
   });
 
