@@ -1,18 +1,12 @@
-// import { getFollowers } from "@/lib/github/api";
-import Image from "next/image";
-import { UnsubscribeForm } from "./UnsubscribeForm";
-import { db, subscriptions, userStats } from "@/db";
+import { db, subscriptions } from "@/db";
 import { eq } from "drizzle-orm";
-import { Button } from "@/components/ui/button";
 import { UnsubscribeButton } from "./UnsubscribeButton";
 
-export default async function Unsubscribe({
-  params,
-}: {
-  params: { email: string };
-}) {
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+export default async function Unsubscribe({ params }) {
   // get query param
-  const { email: toDecode } = params;
+  const { email: toDecode } = params as { email: string };
   const email = decodeURIComponent(toDecode);
 
   const subs = await db

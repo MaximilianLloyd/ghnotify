@@ -12,7 +12,6 @@ export function UnsubscribeButton({
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const handleUnsubscribe = async () => {
     try {

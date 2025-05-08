@@ -1,9 +1,9 @@
 import { db, userStats } from "@/db";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { getFollowers } from "@/lib/github/api";
 import { eq } from "drizzle-orm";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   const users = await db.select().from(userStats);
 
   for (const user of users) {
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
       .set({
         followers: followers.map((f) => f.login),
       })
-      .where(eq(userStats.id, user.id));
+      .where(eq(userStats.username, user.username));
   }
 
   return NextResponse.json(
