@@ -6,7 +6,6 @@ import {
 } from "@/db";
 import { NextRequest } from "next/server";
 import { eq, and } from "drizzle-orm";
-import { getFollowers } from "@/lib/github/api";
 import { followerNotificationEmail } from "@/lib/email/email";
 import { sendEmail } from "@/lib/email/resend";
 
@@ -23,7 +22,7 @@ export async function GET(request: NextRequest) {
       .select({
         id: subscriptionsTable.id,
         email: subscriptionsTable.email,
-        userId: subscriptionsTable.userId,
+        username: subscriptionsTable.username,
         knownFollowers: subscriptionsTable.knownFollowers,
         lastEmailSent: subscriptionsTable.lastEmailSent,
       })
@@ -50,7 +49,7 @@ export async function GET(request: NextRequest) {
         const user = await db
           .select()
           .from(userStatsTable)
-          .where(eq(userStatsTable.id, subscription.userId))
+          .where(eq(userStatsTable.username, subscription.username))
           .then((results) => results[0]);
 
         if (!user) {
@@ -61,39 +60,21 @@ export async function GET(request: NextRequest) {
           };
         }
 
-        // Get current followers from GitHub (just the first page)
-        const followers = await getFollowers({
-          username: user.username,
-        });
-
-        // Convert GitHub format to our stored format
-        const currentFollowers = followers.map((f) => ({
-          login: f.login,
-          avatar_url: f.avatar_url,
-          html_url: f.html_url,
-        }));
-
         // Get previously known followers for this subscription
         const knownFollowers = subscription.knownFollowers || [];
 
         // Find new followers since last email
         const knownFollowerSet = new Set(knownFollowers);
-        const newFollowers = currentFollowers.filter(
-          (f) => !knownFollowerSet.has(f.login),
+        const newFollowers = user.followers.filter(
+          (f) => !knownFollowerSet.has(f),
         );
 
         if (newFollowers.length > 0) {
-          // Send email notification
-          const simpleFollowers = newFollowers.map((f) => ({
-            username: f.login,
-            avatarUrl: f.avatar_url,
-          }));
-
           const emailHtml = followerNotificationEmail({
             recipientEmail: subscription.email,
             githubUsername: user.username,
-            newFollowers: simpleFollowers,
-            totalFollowers: currentFollowers.length,
+            followers: user.followers,
+            totalFollowers: user.followers.length,
           });
 
           await sendEmail({
@@ -106,7 +87,7 @@ export async function GET(request: NextRequest) {
           await db
             .update(subscriptionsTable)
             .set({
-              knownFollowers: currentFollowers.map((f) => f.login),
+              knownFollowers: user.followers,
               lastEmailSent: new Date(),
             })
             .where(eq(subscriptionsTable.id, subscription.id));

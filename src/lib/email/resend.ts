@@ -6,15 +6,18 @@ export async function sendEmail({
   html,
   to,
   subject,
+  react,
 }: {
-  html: string;
+  html?: string;
   to: string;
   subject: string;
+  react?: React.ReactNode;
 }) {
   await resend.emails.send({
     from: "no-reply@ghnotify.com",
     to,
     subject,
     html,
+    react,
   });
 }

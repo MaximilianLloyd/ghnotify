@@ -1,5 +1,8 @@
 "use client";
 
+import { CheckCircleIcon } from "lucide-react";
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,6 +17,7 @@ import {
 } from "@/components/ui/select";
 import { z } from "zod";
 import { Card, CardContent } from "@/components/ui/card";
+import { useState } from "react";
 
 const subscribeSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -36,30 +40,50 @@ export function SubscribeForm() {
     mode: "onChange",
   });
 
+  const [isLoading, setLoading] = useState(false);
+  const [isSuccess, setSuccess] = useState(false);
+
   const onSubmit: SubmitHandler<SubscribeFormValues> = async (data) => {
     const res = await fetch(`/api/gh`, {
       method: "POST",
       body: JSON.stringify({
         username: data.username,
+        email: data.email,
       }),
     });
 
-    if (res.status === 404) {
+    if (!res.ok) {
+      const msg = await res.text();
       setError("username", {
         type: "manual",
-        message: "GitHub user not found",
+        message: msg,
       });
       return;
     } else {
-      const res = await fetch("/api/subscribe", {
+      setLoading(true);
+      await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      const json = await res.json();
-      console.log(json);
+      // const json = await res.json();
+      setSuccess(true);
     }
+
+    setLoading(false);
   };
+
+  if (isSuccess) {
+    return <SuccessMessage />;
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-2">
+        <p className="text-sm text-gray-500">Subscribing...</p>
+      </div>
+    );
+  }
 
   return (
     <form
@@ -143,5 +167,17 @@ export function SubscribeForm() {
         </CardContent>
       </Card>
     </form>
+  );
+}
+
+export function SuccessMessage() {
+  return (
+    <Alert>
+      <CheckCircleIcon className="h-4 w-4" />
+      <AlertTitle>Success</AlertTitle>
+      <AlertDescription>
+        You will receive an email when someone follows you on Github.
+      </AlertDescription>
+    </Alert>
   );
 }

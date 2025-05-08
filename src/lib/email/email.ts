@@ -44,21 +44,21 @@ export const baseEmailStyles = `
 export function followerNotificationEmail({
   recipientEmail,
   githubUsername,
-  newFollowers,
+  followers,
   totalFollowers,
 }: {
   recipientEmail: string;
   githubUsername: string;
-  newFollowers: { username: string; avatarUrl: string }[];
+  followers: string[];
   totalFollowers?: number;
 }) {
-  const followerListHtml = newFollowers
+  const followerListHtml = followers
     .map(
       (follower) => `
       <div class="follower-box">
-        <img class="follower-avatar" src="${follower.avatarUrl}" alt="${follower.username}'s avatar" />
+        <img class="follower-avatar" src="https://github.com/${follower}.png" alt="${follower}'s avatar" />
         <div>
-          <p style="margin: 0;"><a href="https://github.com/${follower.username}">${follower.username}</a></p>
+          <p style="margin: 0;"><a href="https://github.com/${follower}">${follower}</a></p>
           <p style="font-size: 14px; margin: 4px 0 0; color: #6b7280;">View profile</p>
         </div>
       </div>
@@ -93,18 +93,20 @@ export function followerNotificationEmail({
   </head>
   <body>
     <div class="container">
-      <h1>🎉 You have ${newFollowers.length} new follower${newFollowers.length > 1 ? "s" : ""}!</h1>
+      <h1>🎉 You have ${followers.length} new follower${followers.length > 1 ? "s" : ""}!</h1>
       <p>
-        The following GitHub user${newFollowers.length > 1 ? "s have" : " has"} recently followed <strong>${githubUsername}</strong>.
-        ${totalFollowers ? `<br>Total followers: <strong>${totalFollowers}</strong>` : ''}
+        The following GitHub user${followers.length > 1 ? "s have" : " has"} recently followed <strong>${githubUsername}</strong>.
+        ${totalFollowers ? `<br>Total followers: <strong>${totalFollowers}</strong>` : ""}
       </p>
 
       ${followerListHtml}
 
+      <div style="margin-top: 24px;">
       <a class="cta" href="https://github.com/${githubUsername}?tab=followers">View all followers</a>
+      </div>
 
       <div class="footer">
-        Sent to ${recipientEmail} • <a href="https://ghnotify.com/unsubscribe">Unsubscribe</a>
+        Sent to ${recipientEmail} • <a href="https://ghnotify.com/unsubscribe/${recipientEmail}">Unsubscribe</a>
       </div>
     </div>
   </body>
@@ -114,9 +116,11 @@ export function followerNotificationEmail({
 export function subscriptionConfirmation({
   username,
   emailFrequency,
+  email,
 }: {
   username: string;
   emailFrequency: string;
+  email: string;
 }) {
   return `
 <!DOCTYPE html>
@@ -144,7 +148,7 @@ export function subscriptionConfirmation({
         View ${username}'s followers
       </a>
       <div class="footer">
-        <a href="https://ghnotify.com/unsubscribe">Unsubscribe</a> at any time
+        <a href="https://ghnotify.com/unsubscribe/${email}">Unsubscribe</a> at any time
       </div>
     </div>
   </body>

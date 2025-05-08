@@ -15,37 +15,35 @@ export async function POST(request: Request) {
     (await request.json()) as SubscribeData;
   const ghUser = await getUser({ username });
 
-  const [existingUser] = await db
+  let [existingUser] = await db
     .select()
     .from(userStats)
     .where(eq(userStats.username, username))
     .limit(1);
 
-  let userId = existingUser?.id;
-
   if (!existingUser) {
+    const followers = await getFollowers({
+      username,
+    });
+
     const result = await db
       .insert(userStats)
       .values({
         username,
         fullName: ghUser.name,
         avatarUrl: ghUser.avatar_url,
+        followers: followers.map((f) => f.login),
       })
       .returning();
 
-    userId = result[0].id;
+    existingUser = result[0];
   }
-
-  // Get current followers to initialize the subscription's known followers
-  const followers = await getFollowers({
-    username,
-  });
 
   await db.insert(subscriptions).values({
     email,
-    userId: userId,
+    username: existingUser.username,
     emailFrequency,
-    knownFollowers: followers.map((f) => f.login),
+    knownFollowers: existingUser.followers,
     lastEmailSent: new Date(),
   });
 
@@ -55,6 +53,7 @@ export async function POST(request: Request) {
     html: subscriptionConfirmation({
       username,
       emailFrequency,
+      email,
     }),
   });
 

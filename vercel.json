@@ -15,6 +15,10 @@
     {
       "path": "/api/check?emailFrequency=monthly",
       "schedule": "0 0 1 * *"
+    },
+    {
+      "path": "/api/update-followers",
+      "schedule": "0 * * * *"
     }
   ]
 }

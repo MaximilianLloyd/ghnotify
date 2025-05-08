@@ -3,7 +3,6 @@ import {
   serial,
   varchar,
   timestamp,
-  integer,
   pgEnum,
   boolean,
   text,
@@ -19,14 +18,14 @@ export const updateIntervalEnum = pgEnum("update_interval", [
 
 // Tracked GitHub users
 export const userStats = pgTable("user_stats", {
-  id: serial("id").primaryKey(),
-  username: varchar("username", { length: 100 }).notNull().unique(),
+  username: varchar("username", { length: 100 })
+    .notNull()
+    .unique()
+    .primaryKey(),
   fullName: varchar("full_name", { length: 255 }),
   avatarUrl: varchar("avatar_url", { length: 500 }),
-  followers: text("followers").array().default([]),
+  followers: text("followers").array().notNull().default([]),
   lastSynced: timestamp("last_synced").defaultNow(),
-  lastEmailSent: timestamp("last_email_sent"),
-  knownFollowers: text("known_followers").array().default([]),
 });
 
 export type UserStats = typeof userStats.$inferSelect;
@@ -36,9 +35,9 @@ export type Subscription = typeof subscriptions.$inferSelect;
 export const subscriptions = pgTable("subscriptions", {
   id: serial("id").primaryKey(),
   email: varchar("email", { length: 255 }).notNull(),
-  userId: integer("user_id")
+  username: varchar("username", { length: 100 })
     .notNull()
-    .references(() => userStats.id, { onDelete: "cascade" }),
+    .references(() => userStats.username, { onDelete: "cascade" }),
   emailFrequency: updateIntervalEnum("email_frequency")
     .notNull()
     .default("daily"),
