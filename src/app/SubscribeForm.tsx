@@ -88,7 +88,7 @@ export function SubscribeForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex gap-2 items-start flex-col sm:flex-row"
+      className="flex gap-2 items-center justify-center flex-col w-full"
     >
       <Card className="w-full sm:w-[400px]">
         <CardContent>

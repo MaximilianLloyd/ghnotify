@@ -1,17 +1,36 @@
+# GHNotify
+
+Get notified when someone follows you on github.
+
+## Setup env
+
+The services used are:
+
+- db: [Neon](https://neon.tech/)
+- email: [Resend](https://resend.com/)
+- hosting: [Vercel](https://vercel.com/)
+
+Create a `.env` file in the root of the project and add the following variables:
+
+```env
+DATABASE_URL=postgres://user:password@localhost:5432/dbname
+GH_TOKEN=your_github_token
+```
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
+
+Install deps:
+
+```bash
+npm install
+```
 
 First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

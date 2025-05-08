@@ -14,12 +14,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GHNotify – GitHub Follower & Star Tracking",
-  description:
-    "Stay in the loop with GitHub followers and repo stars. GHNotify lets you track new followers.",
+  title: "GHNotify – GitHub Follower Tracking",
+  description: "Stay in the loop with GitHub followers.",
   metadataBase: new URL("https://ghnotify.com"),
   openGraph: {
-    title: "GHNotify – GitHub Follower & Star Tracking",
+    title: "GHNotify – GitHub FollowerTracking",
     description:
       "Track your GitHub growth and get real-time email updates when someone follows you.",
     url: "https://ghnotify.com",
@@ -38,9 +37,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "GHNotify – GitHub Tracker",
-    description: "Email updates for your GitHub followers and stars.",
+    description: "Email updates for your GitHub followers",
     images: ["https://ghnotify.com/og-image.png"], // replace as needed
-    creator: "@yourhandle", // optional
+    creator: "@sudo2hell", // optional
   },
 };
 
@@ -56,6 +55,19 @@ export default function RootLayout({
       >
         <Navbar></Navbar>
         {children}
+        <footer className="absolute left-0 bottom-0 w-full pb-10 row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+          <p className="flex gap-1">
+            Built by
+            <a
+              href="https://x.com/sudo2hell"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-700 underline hover:text-black transition-colors"
+            >
+              Max
+            </a>
+          </p>
+        </footer>
       </body>
     </html>
   );

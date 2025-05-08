@@ -14,7 +14,7 @@ export async function sendEmail({
   react?: React.ReactNode;
 }) {
   await resend.emails.send({
-    from: "no-reply@ghnotify.com",
+    from: "GHnotify <no-reply@ghnotify.com>",
     to,
     subject,
     html,
