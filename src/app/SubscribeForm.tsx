@@ -41,7 +41,7 @@ export function SubscribeForm() {
   });
 
   const [isLoading, setLoading] = useState(false);
-  const [isSuccess, setSuccess] = useState(false);
+  const [isSuccess, setSuccess] = useState(true);
 
   const onSubmit: SubmitHandler<SubscribeFormValues> = async (data) => {
     const res = await fetch(`/api/gh`, {
@@ -74,12 +74,16 @@ export function SubscribeForm() {
   };
 
   if (isSuccess) {
-    return <SuccessMessage />;
+    return (
+      <div className="max-w-md w-full mx-auto">
+        <SuccessMessage />
+      </div>
+    );
   }
 
   if (isLoading) {
     return (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col items-center justify-center gap-2 w-full">
         <p className="text-sm text-gray-500">Subscribing...</p>
       </div>
     );

@@ -18,9 +18,8 @@ export const metadata: Metadata = {
   description: "Stay in the loop with GitHub followers.",
   metadataBase: new URL("https://ghnotify.com"),
   openGraph: {
-    title: "GHNotify – GitHub FollowerTracking",
-    description:
-      "Track your GitHub growth and get real-time email updates when someone follows you.",
+    title: "GHNotify – GitHub Follower Tracking",
+    description: "email updates for your github followers",
     url: "https://ghnotify.com",
     siteName: "GHNotify",
     images: [
@@ -36,8 +35,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "GHNotify – GitHub Tracker",
-    description: "Email updates for your GitHub followers",
+    title: "GHNotify – GitHub Follower Tracking",
+    description: "email updates for your github followers",
     images: ["https://ghnotify.com/og-image.png"], // replace as needed
     creator: "@sudo2hell", // optional
   },

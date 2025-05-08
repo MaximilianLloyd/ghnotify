@@ -14,6 +14,7 @@ Create a `.env` file in the root of the project and add the following variables:
 
 ```env
 DATABASE_URL=postgres://user:password@localhost:5432/dbname
+RESEND_API_KEY=your_resend_api_key
 GH_TOKEN=your_github_token
 ```
 

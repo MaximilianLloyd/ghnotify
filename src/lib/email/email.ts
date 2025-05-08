@@ -139,7 +139,7 @@ export function subscriptionConfirmation({
     <div class="container">
       <h1>You're subscribed!</h1>
       <p>
-        You've successfully subscribed to follwoers updates for <strong>${username}</strong>.
+        You've successfully subscribed to follower updates for <strong>${username}</strong>.
       </p>
       <p>
         You'll receive email notifications <strong>${emailFrequency}</strong> when they get new followers.
