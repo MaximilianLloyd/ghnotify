@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: "GHNotify – GitHub Follower Tracking",
   description: "Stay in the loop with GitHub followers.",
   metadataBase: new URL("https://ghnotify.com"),
+  icons: {
+    icon: "/favicon.png", // or .png or .svg
+  },
   openGraph: {
     title: "GHNotify – GitHub Follower Tracking",
     description: "email updates for your github followers",
