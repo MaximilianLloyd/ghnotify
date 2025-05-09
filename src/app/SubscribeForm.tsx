@@ -41,7 +41,7 @@ export function SubscribeForm() {
   });
 
   const [isLoading, setLoading] = useState(false);
-  const [isSuccess, setSuccess] = useState(true);
+  const [isSuccess, setSuccess] = useState(false);
 
   const onSubmit: SubmitHandler<SubscribeFormValues> = async (data) => {
     const res = await fetch(`/api/gh`, {
