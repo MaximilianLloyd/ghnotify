@@ -16,6 +16,8 @@ Create a `.env` file in the root of the project and add the following variables:
 DATABASE_URL=postgres://user:password@localhost:5432/dbname
 RESEND_API_KEY=your_resend_api_key
 GH_TOKEN=your_github_token
+NEXT_PUBLIC_POSTHOG_KEY=your_posthog_key
+NEXT_PUBLIC_POSTHOG_HOST=your_posthog_host
 ```
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
