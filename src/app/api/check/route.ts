@@ -73,7 +73,7 @@ export async function GET(request: NextRequest) {
           const emailHtml = followerNotificationEmail({
             recipientEmail: subscription.email,
             githubUsername: user.username,
-            followers: user.followers,
+            followers: newFollowers,
             totalFollowers: user.followers.length,
           });
 
