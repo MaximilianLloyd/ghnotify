@@ -44,72 +44,82 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* Terminal theme with green accent similar to terminal.shop */
+  --radius: 0.25rem;
+  --background: #000000;
+  --foreground: #e0e0e0;
+  --card: #111111;
+  --card-foreground: #e0e0e0;
+  --popover: #111111;
+  --popover-foreground: #e0e0e0;
+  --primary: #00ff9c;
+  --primary-foreground: #000000;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #a0a0a0;
+  --muted: #1a1a1a;
+  --muted-foreground: #a0a0a0;
+  --accent: #1a1a1a;
+  --accent-foreground: #00ff9c;
+  --destructive: #ff4343;
+  --border: #333333;
+  --input: #333333;
+  --ring: #00ff9c;
+  
+  /* Chart colors in terminal green shades */
+  --chart-1: #00ff9c;
+  --chart-2: #00cc7d;
+  --chart-3: #00995e;
+  --chart-4: #00663f;
+  --chart-5: #00331f;
+  
+  /* Sidebar with terminal theme */
+  --sidebar: #111111;
+  --sidebar-foreground: #e0e0e0;
+  --sidebar-primary: #00ff9c;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #1a1a1a;
+  --sidebar-accent-foreground: #00ff9c;
+  --sidebar-border: #333333;
+  --sidebar-ring: #00ff9c;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Terminal theme colors */
+  --background: #000000;
+  --foreground: #e0e0e0;
+  --card: #111111;
+  --card-foreground: #e0e0e0;
+  --popover: #111111;
+  --popover-foreground: #e0e0e0;
+  --primary: #00ff9c;
+  --primary-foreground: #000000;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #a0a0a0;
+  --muted: #1a1a1a;
+  --muted-foreground: #a0a0a0;
+  --accent: #1a1a1a;
+  --accent-foreground: #00ff9c;
+  --destructive: #ff4343;
+  --border: #333333;
+  --input: #333333;
+  --ring: #00ff9c;
+  
+  /* Chart colors in terminal green shades */
+  --chart-1: #00ff9c;
+  --chart-2: #00cc7d;
+  --chart-3: #00995e;
+  --chart-4: #00663f;
+  --chart-5: #00331f;
+  
+  /* Sidebar with terminal theme */
+  --sidebar: #111111;
+  --sidebar-foreground: #e0e0e0;
+  --sidebar-primary: #00ff9c;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #1a1a1a;
+  --sidebar-accent-foreground: #00ff9c;
+  --sidebar-border: #333333;
+  --sidebar-ring: #00ff9c;
 }
 
 @layer base {
@@ -118,5 +128,33 @@
   }
   body {
     @apply bg-background text-foreground;
+    letter-spacing: -0.02em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 500;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tighter;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+  }
+  h1 {
+    font-weight: 700;
+  }
+  p {
+    @apply tracking-tight;
+    letter-spacing: -0.015em;
+    font-weight: 500;
+  }
+  button, a.button, a {
+    @apply tracking-tight;
+    letter-spacing: -0.015em;
+    font-weight: 500;
+  }
+  .card {
+    @apply border border-border bg-card rounded-md;
+  }
+  strong, b {
+    font-weight: 700;
   }
 }

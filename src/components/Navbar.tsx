@@ -44,12 +44,13 @@ const routeList: RouteProps[] = [
 export const Navbar = () => {
   // const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
-    <header className="sticky border-b-[1px] top-0 z-40 w-full bg-white dark:border-b-slate-700 dark:bg-background">
+    <header className="sticky border-b-[1px] top-0 z-40 w-full dark:border-border dark:bg-background">
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="container h-14 px-4 w-screen flex justify-between ">
-          <NavigationMenuItem className="font-bold flex">
-            <Link href="/" className="ml-2 font-bold text-xl flex">
-              GH Notify
+          <NavigationMenuItem className="flex">
+            <Link href="/" className="ml-2 text-xl flex items-center">
+              <span className="text-primary mr-1 font-bold">$</span>{" "}
+              <span className="font-bold">GH Notify</span>
             </Link>
           </NavigationMenuItem>
 

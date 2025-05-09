@@ -1,43 +1,71 @@
 export const baseEmailStyles = `
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #f9fafb;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    background-color: #111111 !important;
     padding: 0;
     margin: 0;
+    color: #e0e0e0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.02em;
   }
   .container {
     max-width: 600px;
     margin: 40px auto;
     padding: 24px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+    background-color: #111111 !important;
+    border-radius: 4px;
+    border: 1px solid #333333;
   }
   h1 {
-    font-size: 22px;
-    color: #111827;
+    font-size: 24px;
+    color: #e0e0e0;
     margin-bottom: 16px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
   }
   p {
     font-size: 16px;
-    color: #374151;
+    color: #a0a0a0;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.5;
+  }
+  strong {
+    color: #e0e0e0;
+    font-weight: 700;
+  }
+  a {
+    color: #00ff9c;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
   }
   .cta {
-      background-color: #f6f8fa;
-  border: 1px solid rgba(27, 31, 35, 0.15);
-  border-radius: 6px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #24292f !important;
-  text-decoration: none;
-  display: inline-block;
+    background-color: #00ff9c;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f0f0f !important;
+    text-decoration: none;
+    display: inline-block;
+    letter-spacing: -0.015em;
   }
   .footer {
     margin-top: 40px;
     font-size: 12px;
-    color: #9ca3af;
+    color: #666666;
     text-align: center;
+  }
+  .command-line {
+    color: #00ff9c;
+    font-weight: 500;
+  }
+  .emoji {
+    margin-right: 8px;
   }
 `;
 
@@ -72,41 +100,52 @@ export function followerNotificationEmail({
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark">
+    <meta name="supported-color-schemes" content="dark">
     <title>New GitHub Followers</title>
     <style>
+      :root {
+        color-scheme: dark;
+      }
       ${baseEmailStyles}
+      html, body {
+        background-color: #111111 !important;
+      }
+
         .follower-box {
     display: flex;
     align-items: center;
     margin-top: 16px;
-    padding: 12px;
-    border: 1px solid #e5e7eb;
-    border-radius: 6px;
+    padding: 16px;
+    border: 1px solid #333333;
+    background-color: #171717;
+    border-radius: 4px;
   }
   .follower-avatar {
     width: 48px;
     height: 48px;
-    border-radius: 50%;
+    border-radius: 4px;
     margin-right: 16px;
   }
     </style>
   </head>
-  <body>
+  <body style="background-color: #111111 !important;">
     <div class="container">
-      <h1>🎉 You have ${followers.length} new follower${followers.length > 1 ? "s" : ""}!</h1>
+      <div class="command-line">$ github_notify --user=${githubUsername} --check=followers</div>
+      <h1><span class="emoji">⚡</span>new follower${followers.length > 1 ? "s" : ""} detected</h1>
       <p>
-        The following GitHub user${followers.length > 1 ? "s have" : " has"} recently followed <strong>${githubUsername}</strong>.
-        ${totalFollowers ? `<br>Total followers: <strong>${totalFollowers}</strong>` : ""}
+        <strong>${followers.length}</strong> new user${followers.length > 1 ? "s have" : " has"} followed <strong>${githubUsername}</strong>
+        ${totalFollowers ? `<br>total followers: <strong>${totalFollowers}</strong>` : ""}
       </p>
 
       ${followerListHtml}
 
-      <div style="margin-top: 24px;">
-      <a class="cta" href="https://github.com/${githubUsername}?tab=followers">View all followers</a>
+      <div style="margin-top: 32px;">
+      <a class="cta" href="https://github.com/${githubUsername}?tab=followers">view all followers</a>
       </div>
 
       <div class="footer">
-        Sent to ${recipientEmail} • <a href="https://ghnotify.com/unsubscribe/${recipientEmail}">Unsubscribe</a>
+        sent to ${recipientEmail} • <a href="https://ghnotify.com/unsubscribe/${recipientEmail}">unsubscribe</a>
       </div>
     </div>
   </body>
@@ -128,27 +167,47 @@ export function subscriptionConfirmation({
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark">
+    <meta name="supported-color-schemes" content="dark">
     <title>
       Subscription Confirmation
     </title>
     <style>
+      :root {
+        color-scheme: dark;
+      }
       ${baseEmailStyles}
+      html, body {
+        background-color: #111111 !important;
+      }
+
+      code {
+        background: #171717;
+        padding: 2px 6px;
+        border-radius: 4px;
+        border: 1px solid #333333;
+        color: #00ff9c;
+        font-family: monospace;
+      }
     </style>
   </head>
-  <body>
+  <body style="background-color: #111111 !important;">
     <div class="container">
-      <h1>You're subscribed!</h1>
+      <div class="command-line">$ github_notify --subscribe --user=${username} --frequency=${emailFrequency}</div>
+      <h1><span class="emoji">✓</span>subscription activated</h1>
       <p>
-        You've successfully subscribed to follower updates for <strong>${username}</strong>.
+        github follower tracking has been enabled for <strong>${username}</strong>
       </p>
       <p>
-        You'll receive email notifications <strong>${emailFrequency}</strong> when they get new followers.
+        notification frequency: <code>${emailFrequency}</code>
       </p>
-      <a class="cta" href="https://github.com/${username}?tab=followers">
-        View ${username}'s followers
-      </a>
+      <div style="margin-top: 24px; margin-bottom: 12px;">
+        <a class="cta" href="https://github.com/${username}?tab=followers">
+          view current followers
+        </a>
+      </div>
       <div class="footer">
-        <a href="https://ghnotify.com/unsubscribe/${email}">Unsubscribe</a> at any time
+        sent to ${email} • <a href="https://ghnotify.com/unsubscribe/${email}">unsubscribe</a>
       </div>
     </div>
   </body>
